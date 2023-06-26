@@ -1,35 +1,50 @@
 @extends('layouts.main')
 
-@section('title','Pagina inicial')
+@section('title', 'Pagina inicial')
 
 @section('content')
-    
-    <h1>HOME SCREEN</h1>
-    <img src="/img/banner_2.jpg" alt="">
-    @if(10 > 5)
-        <p>The condicion is true</p>
-    @endif
-    <p>{{$name}}</p>
 
-    @if($name == 'Pedro')
-        <p>The name is Pedro</p>
-    @else
-        <p>The name is {{$name}}, I'm {{$age}} years old</p>
-        <p>Job as {{$job}}</p>
-    @endif
-
-    @for($i = 0; $i < count($arr); $i++)
-        <p>{{$arr[$i]}} - {{$i}}</p>
-        @if($i == 2)
-            <p>O i é 2</p>
+    <div id="serch-container" class="col-md-12">
+        <h1>Busque um evento</h1>
+        <form action="/" method="get">
+            <input type="text" name="search" id="search" class="form-control" placeholder="Procurar...">
+        </form>
+    </div>
+    <div id="events-container" class="col-md-12">
+        @if ($search)
+            <h2>Procurando por : {{$search}}</h2>
+            <p class="subtitle">Veja os eventos dos proxímos dias</p>
+            @else
+            <h2>Proximos Eventos</h2>
+            <p class="subtitle">Veja os eventos dos proxímos dias</p>
         @endif
-    @endfor
 
-    @foreach ($names as $names)
-        <p>{{$loop->index}}
-        {{-- </p>imprime os idices do array --}}
-        <p>{{$names}}</p>
-    @endforeach
-    {{--comentario com blade--}}
+        <div id="cards-container" class="row">
+            @if (count($events) == 0 && $search)
+                <p>Não foi possivel encontrar nenhum evento com : {{$search}}</p>
+            @elseif (count($events) == 0)
+            <p>Nenhum evento registrado!</p>
+            @endif
 
-    @endsection
+            @foreach ($events as $events)
+                <div class="card col-md-3">
+                    <img src="/img/events/{{ $events->image }}" alt="{{ $events->title }}">
+                    <div class="card-body">
+                        <div class="card-date">{{date('d/m/Y',strtotime($events->date))}}</div>
+                        <h5 class="card-title">{{ $events->title }}</h5>
+                        <p class="card-particupants"><i class="icon ion-md-contacts"></i> Participantes</p>
+                        <a href="/events/{{ $events->id }}" class="btn btn-primary">Saber mais</a>
+                    </div>
+                </div>
+            @endforeach
+
+        </div>
+    </div>
+
+    {{-- @foreach ($events as $events)
+<p>{{$events->title}} -- {{$events->description}}</p>
+@endforeach --}}
+
+    {{-- comentario com blade --}}
+
+@endsection

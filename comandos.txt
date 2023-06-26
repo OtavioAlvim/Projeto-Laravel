@@ -1,0 +1,29 @@
+//comando para ligar o servidor 
+
+php artisan serve
+
+//comando de recolocar as tabelas
+
+php artisan migrate:fresh
+
+//comando para verificar as migrates pendentes
+
+php artisan migrate:status
+
+//-----comando para criar uma migrate
+
+ php artisan make:migration "nome da migration"
+
+//-----comando para criar um controller
+
+php artisan make:Controller "nome do controller"
+
+//-----comando avançados de migration 
+
+//-----para adicionar um novo campo a tabela, devemos criar uma nova migration, para não excluir os dados do banco de produção
+
+php artisan make:migration add_category_to_ "nome da migration"
+
+//-----comando para remover a coluna criada
+
+ php artisan migrate:rollback

@@ -1,2 +1,12 @@
-<h1>Ola, mundo!</h1>
-<a href="/">voltar para home</a>
+@extends('layouts.main')
+
+@section('title','Contact')
+
+@section('content')
+{{-- <h1>{{$teste}}</h1> --}}
+
+@foreach ($contact as $contact)
+    <p>{{$contact->name}}</p>
+@endforeach
+@endsection
+
